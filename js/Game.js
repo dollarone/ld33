@@ -9,15 +9,19 @@ PlatformerGame.Game.prototype = {
 
         this.map = this.game.add.tilemap('level1');
 
-        this.map.addTilesetImage('ground', 'ground');
+        this.map.addTilesetImage('ground', 'gameTiles');
 
         this.blockedLayer = this.map.createLayer('blockedLayer');
-        //this.backgroundLayer.resizeWorld();
-        this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
+        
+        this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
 
+        //this.blockedLayer.body.immovable = true;
+        this.blockedLayer.resizeWorld();
 
+        this.playerCanJump = true;
+/*
         this.game.add.sprite(0, 0, 'sky');
-
+/*
         this.platforms = this.game.add.group();
         this.platforms.enableBody = true;
 
@@ -29,22 +33,24 @@ PlatformerGame.Game.prototype = {
 
         this.ledge = this.platforms.create(32, 32, 'platform');
         this.ledge.body.immovable = true;
-
+*/
         this.player = this.game.add.sprite(32, this.game.world.height - 150, 'player');
         this.player.anchor.set(0.5);
         this.player.smoothed = false;
 
+        this.lastTile = this.player;
+
         this.game.physics.arcade.enable(this.player); // player now affected by physics. SCIENCE!
         this.game.camera.follow(this.player);
 
-        this.player.body.bounce.y = 0.2;
+        this.player.body.bounce.y = 0.3;
         this.player.body.gravity.y = 300;
-        this.player.body.collideWorldBounds = true;
+        this.player.body.collideWorldBounds = false;
 
         // animations
         this.player.animations.add('left', [0], 10, true);
         this.player.animations.add('right', [0], 10, true);
-
+/*
         this.coins = this.game.add.group();
 
         this.coins.enableBody = true;
@@ -56,6 +62,7 @@ PlatformerGame.Game.prototype = {
             coin.body.gravity.y = 300; // coins can fall down
             coin.body.bounce.y = 0.3;
         }
+        */
         // add a score text
         this.scoreText = this.game.add.text(90, 0, 'Score: 0', { fontSize: '32px', fill: '#000'});
         this.score = 0;
@@ -68,11 +75,13 @@ PlatformerGame.Game.prototype = {
     update: function() {
 
         // collisions! player with platforms; coins with platforms
+        this.game.physics.arcade.collide(this.player, this.blockedLayer, this.resetJump, null, this);
         this.game.physics.arcade.collide(this.player, this.platforms);
-        this.game.physics.arcade.collide(this.coins,  this.platforms);
+        //this.game.physics.arcade.collide(this.coins,  this.platforms);
+
 
         // if player overlaps a coin, call the collectCoin function
-        this.game.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
+//        this.game.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
 
         // reset the players velocity 
         this.player.body.velocity.x = 0;
@@ -91,10 +100,13 @@ PlatformerGame.Game.prototype = {
         }
 
         // jump
-        if (this.cursors.up.isDown && this.player.body.touching.down) {
-            this.player.body.velocity.y = -128;
+        if (this.cursors.up.isDown && this.playerCanJump) { // this.player.body.blocked.down //this.playerCanJump) { //} && this.player.body.touching.down) {
+            this.player.body.velocity.y = -192;
+            this.playerCanJump = false;
         }
 
+        this.game.debug.body(this.player, 'rgba(255, 255, 0, 0.5)');
+        this.game.debug.body(this.lastTile, 'rgba(255, 255, 255, 0.4)');
     },
 
     collectCoin: function(player, coin) {
@@ -103,19 +115,25 @@ PlatformerGame.Game.prototype = {
         this.score += 100;
         this.scoreText.text = 'Score: ' + this.score;
     },
-    _updateRootGroupOnResize: function() {
-  // You may want to keep zoom integer to avoid rendering artefacts
-  // UPDATE: 
-  // It is unlikely but possible that canvas size will be smaller then the safe zone width
-  // so make sure that zoom is greater or equal 1
-    var zoom = Math.max(1, ~~(this.game.height / this.SAFE_ZONE_HEIGHT));
 
-  // Floor group position to avoid 'floating' pixels. Pixel art is sensitive to it.
-  // UPDATE: 
-  // Multiply only SAFE_ZONE_WIDTH by zoom to make it in the same space with canvas width.
-  // The code aligns root group horizontally within the canvas.
-    this._rootGroup.position.x = ~~(this.game.width/2 - zoom*this.SAFE_ZONE_WIDTH/2);
-    this._rootGroup.scale.set(zoom, zoom);
-}
+    resetJump: function(player, tile) {
 
+        if (this.player.body.blocked.down) {
+            this.playerCanJump = true;
+    },
+/*        console.log('collison');
+        console.log(player);
+        console.log(tile);
+        console.log(this.lastTile);
+
+        this.lastTile = tile;
+        this.lastTile.debug = true;
+        this.lastTile.dirty = true;
+        this.map.dirty = true;
+        this.map.setLayer(this.blockedLayer);
+        if(player.y > tile.y) {
+            //this.playerCanJump = true;
+        }
+        */
+    }
 };

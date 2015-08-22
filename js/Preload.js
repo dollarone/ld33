@@ -15,7 +15,7 @@ PlatformerGame.Preload.prototype = {
         this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);   
         this.game.load.image('player', 'assets/images/player.png');
         this.game.load.image('sky', 'assets/images/sky.png');
-        this.game.load.image('ground', 'assets/images/ground.png');
+        this.game.load.image('gameTiles', 'assets/images/gameTiles.png');
         this.game.load.image('platform', 'assets/images/platform.png');
         this.game.load.image('coin', 'assets/images/coin.png');
     },
