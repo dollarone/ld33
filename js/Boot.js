@@ -18,6 +18,9 @@ PlatformerGame.Boot.prototype = {
 
         this.scale.setScreenSize(true); // set automatically
 
+        this.game.stage.smoothed = false;
+
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.state.start('Preload');

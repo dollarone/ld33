@@ -4,7 +4,17 @@ PlatformerGame.Game = function(){};
 
 PlatformerGame.Game.prototype = {
 
+
     create: function() {
+
+        this.map = this.game.add.tilemap('level1');
+
+        this.map.addTilesetImage('ground', 'ground');
+
+        this.blockedLayer = this.map.createLayer('blockedLayer');
+        //this.backgroundLayer.resizeWorld();
+        this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
+
 
         this.game.add.sprite(0, 0, 'sky');
 
@@ -21,8 +31,11 @@ PlatformerGame.Game.prototype = {
         this.ledge.body.immovable = true;
 
         this.player = this.game.add.sprite(32, this.game.world.height - 150, 'player');
+        this.player.anchor.set(0.5);
+        this.player.smoothed = false;
 
         this.game.physics.arcade.enable(this.player); // player now affected by physics. SCIENCE!
+        this.game.camera.follow(this.player);
 
         this.player.body.bounce.y = 0.2;
         this.player.body.gravity.y = 300;
@@ -89,5 +102,20 @@ PlatformerGame.Game.prototype = {
         coin.kill();
         this.score += 100;
         this.scoreText.text = 'Score: ' + this.score;
-    }
+    },
+    _updateRootGroupOnResize: function() {
+  // You may want to keep zoom integer to avoid rendering artefacts
+  // UPDATE: 
+  // It is unlikely but possible that canvas size will be smaller then the safe zone width
+  // so make sure that zoom is greater or equal 1
+    var zoom = Math.max(1, ~~(this.game.height / this.SAFE_ZONE_HEIGHT));
+
+  // Floor group position to avoid 'floating' pixels. Pixel art is sensitive to it.
+  // UPDATE: 
+  // Multiply only SAFE_ZONE_WIDTH by zoom to make it in the same space with canvas width.
+  // The code aligns root group horizontally within the canvas.
+    this._rootGroup.position.x = ~~(this.game.width/2 - zoom*this.SAFE_ZONE_WIDTH/2);
+    this._rootGroup.scale.set(zoom, zoom);
+}
+
 };
