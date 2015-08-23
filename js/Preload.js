@@ -18,6 +18,9 @@ PlatformerGame.Preload.prototype = {
         this.game.load.image('gameTiles', 'assets/images/gameTiles.png');
         this.game.load.image('platform', 'assets/images/platform.png');
         this.game.load.image('coin', 'assets/images/coin.png');
+        
+        this.game.load.image('heart', 'assets/images/heart.png');
+        this.game.load.spritesheet('objects', 'assets/images/objects.png', 16, 16, 16);
     },
 
     create: function() {
