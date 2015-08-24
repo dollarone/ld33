@@ -210,7 +210,7 @@ PlatformerGame.Game.prototype = {
 
 
         // add a score text
-        this.scoreText = this.game.add.text(40, 20, 'The Frog King\nand his minions\nhave invaded\nyour country!', { fontSize: '16px', fill: '#000'});
+        this.scoreText = this.game.add.text(40, 20, '              The Frog King\n              and his minions\n              have invaded\n              your country!', { fontSize: '16px', fill: '#000'});
         this.score = 0;
         this.scoreText.fixedToCamera = true;
         this.scoreText.visible = true;        
