@@ -1,0 +1,97 @@
+TODO:
+
+gfx:
+titlescreen
+dollarone productions screen
+tileset:
+DONE grass
+ trees?
+ castle
+animations
+monster animations
+DONE ghosts
+background stuff
+DONE boss
+DONEish ending/fail screen
+replay to dead princess
+WIN screen w/princess
+
+sfx:
+BASS DONE music
+DONE sound
+introsound
+
+code:
+DONE level import
+dollarone screen
+introscreen w/ instructions
+DONE monster AI
+DONE ghost AI
+DONE boss AI
+win/loss stuff
+game over/ retry
+ultimate win screen
+
+level stuff:
+if you respawn, don't respawn on monsters
+make the ulti-jumps not required
+more hearts
+
+sounds: (ALL DONE)
+ghost breathe.
+crunch
+frog.
+boss shout.
+random mutterings ("oh ffs." - "hrrk" - "better get going'" - whistle - yawn)
+smooch
+pain.
+death...
+thud (land).
+power up.
+super power up.
+boss evil laugh.
+SLAM
+
+
+aim for:
+1 music track
+3 levels:
+ forest
+ castle
+ boss
+
+intro should look like SMB but not 100%
+100 coins = life?
+
+optional extras:
+intro
+high score screen (can be seen during introscreen)
+("saved X citizens")
+
+============
+Current next steps:
+
+DONE boss AI
+door/next level warp thing
+more tiles
+write intro
+write ending
+improve gfx (backgrounds, more tiles like trees)
+
+
+sounds: (ALL DONE) 
+ghost breathe. 
+crunch
+frog. 
+boss shout. 
+random mutterings ("oh ffs." - "hrrk" - "better get going'" - whistle - yawn)
+smooch
+pain. 
+death... 
+thud (land). 
+power up. 
+super power up. 
+boss evil laugh. 
+SLAM
+
+boss is frog. which then scales into SUPER FROG

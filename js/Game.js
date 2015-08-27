@@ -676,7 +676,7 @@ PlatformerGame.Game.prototype = {
             case 1: 
                 this.sound_frog1.play();
                 break;
-            case 1: 
+            case 2: 
                 this.sound_frog2.play();
                 break;
             default:
