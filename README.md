@@ -1,4 +1,3 @@
-# ld33
-Ludum Dare 33 game
+# The Frog King
 
-22 Aug 12am: First working prototyp
+Ludum Dare 33 Compo entry.  http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=45147
